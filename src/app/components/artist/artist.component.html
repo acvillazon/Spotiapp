@@ -1,0 +1,57 @@
+<app-loading class="animated fadeIn"  *ngIf="loading"></app-loading>
+<app-errors [messajeError]="merror" *ngIf="error"></app-errors>
+<div *ngIf="!loading && !error" class="animated fadeIn" style="z-index: 1; display: flex; position: relative;">
+    <div style="width: 100%; text-align: center;">
+        <img [src]="artist.images | noimage" width="15%;" style="border-width: 20px; border-color: chartreuse; border-radius: 100%;">
+    </div>
+
+</div>
+<div *ngIf="!loading && !error" class="card container animated fadeIn" 
+    style="padding: 1%; height: 280px; margin-top: -10%; z-index: 0; border-color: gray; background-color: #343a40!important;">
+
+    <div style="display: flex; justify-content: space-around; margin-top: 4%;">
+        <p><i style="color: greenyellow;" class="fas fa-crown"></i> {{artist.popularity | number}}</p>
+        <p><i style="color: greenyellow;" class="fas fa-hashtag"></i> {{artist["followers"].total | number}}</p>
+    </div>
+    <br>
+
+    <div style="width: 100%; text-align: center;">
+        <h4>{{artist.name}}</h4>
+    </div>
+    <div class="container-fluid" style="text-align: center;">
+        <span *ngFor="let item of artist.genres" class="badge badge-success">{{item}}</span>
+    </div>
+    <br>
+    <div class="container-fluid" style="display: flex; justify-content: center ;">
+        <a  style="margin-left: 5px; margin-right: 5px;" class="btn btn-outline-primary" target="_blank" [href]="artist.external_urls.spotify">Visitar perfil de artista</a>
+        <button [routerLink]="['/search']" style="margin-left: 5px; margin-right: 5px;" class="btn btn-outline-danger">Regresar</button>
+    </div>
+
+
+</div>
+
+<div class="container" *ngIf="!loading && !error" style="margin-top:4%;">
+    <table class="table">
+        <thead>
+          <tr style="color: white;">
+            <th>#</th>
+            <th>Album</th>
+            <th>Canción</th>
+            <th>Vista Previa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of topTracks" style="color: white;">
+            <th>
+              <img style="height: 50px;" [src]="item.album.images | noimage">
+            </th>
+            <td>{{item.album.name}}</td>
+            <td>{{item.name}}</td>
+            <td>
+              <iframe [src]="item.id | tracksWidget" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>    

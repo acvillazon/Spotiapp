@@ -1,0 +1,10 @@
+<app-errors *ngIf="error" [messajeError]="merror"></app-errors>
+<div class="container">
+    <input #termino type="text"
+        (keyup)="buscar(termino.value)" 
+        class="form-control" 
+        placeholder="Buscar por artista....">
+</div>
+<app-loading style="margin-top: 5%;" *ngIf="loading"></app-loading>
+
+<app-cards *ngIf="!error" [items]="artists"></app-cards>
